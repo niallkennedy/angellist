@@ -1,0 +1,33 @@
+<?php
+/*
+Plugin Name: AngelList
+Plugin URI: http://wordpress.org/extend/plugins/angellist/
+Description: Associate a post with an AngelList startup.
+Author: Niall Kennedy
+Author URI: http://www.niallkennedy.com/
+Version: 1.0
+*/
+
+if ( ! class_exists( 'AngelList' ) ):
+class AngelList {
+	public static function init() {
+		$plugin_directory = dirname( __FILE__ );
+		if ( is_admin() ) {
+			// add a post meta box to the edit and create post screens
+			// allows a user to associate a post with one or more AngelList companies
+			if ( ! class_exists( 'AngelList_Post_Meta_Box' ) )
+				require_once( $plugin_directory . '/edit.php' );
+			new AngelList_Post_Meta_Box();
+		} else {
+			// display AngelList content after a post in single post view
+			if ( ! class_exists( 'AngelList_Content' ) )
+				require_once( $plugin_directory . '/content.php' );
+			new AngelList_Content();
+		}
+	}
+}
+
+add_action( 'init', 'AngelList::init' );
+
+endif;
+?>
