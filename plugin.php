@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: AngelList
-Plugin URI: http://wordpress.org/extend/plugins/angellist/
+Plugin URI: https://github.com/niallkennedy/angellist
 Description: Associate a post with an AngelList startup.
 Author: Niall Kennedy
 Author URI: http://www.niallkennedy.com/
