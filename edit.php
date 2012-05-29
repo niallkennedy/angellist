@@ -203,6 +203,68 @@ class AngelList_Post_Meta_Box {
 			unset( $processed_company_ids );
 		}
 		update_post_meta( $post_id, 'angellist-companies', $companies );
+
+		if ( ! empty( $companies ) )
+			$this->ping( $post_id, $companies );
+	}
+
+	/**
+	 * Ping AngelList when a post is published
+	 * AngelList may associate the article with a "press" mention in its company profiles
+	 * Sets a post meta key of 'angellist-notified' to enforce one ping per post
+	 *
+	 * @since 1.1
+	 * @param int $post_id post identifier
+	 * @param array $companies AngelList companies stored with the post
+	 */
+	private function ping( $post_id, array $companies ) {
+		if ( ! is_int( $post_id ) || $post_id < 1 || empty( $companies ) )
+			return;
+
+		$post = get_post( $post_id );
+		if ( empty( $post->post_status ) )
+			return;
+
+		// only notify for public posts
+		$post_status = get_post_status_object( $post->post_status );
+		if ( empty( $post_status ) || ! isset( $post_status->public ) || $post_status->public !== true )
+			return;
+		unset( $post_status );
+
+		// only notify AngelList once per post, even if list of companies has changed
+		$notify_once_meta_key = 'angellist-notified';
+		if ( get_post_meta( $post_id, $notify_once_meta_key, true ) )
+			return;
+
+		// absolute URIs only. no internal Intranet URIs
+		$post_url = esc_url_raw( get_permalink( $post_id ), array( 'http', 'https' ) );
+		if ( ! $post_url )
+			return;
+
+		// allow a publisher to short-circuit pings
+		// also ties into the blog_public, cutting off the ping request if robots blocked
+		$ping_url = 'http://angel.co/embed/post_published/';
+		if ( ! apply_filters( 'option_ping_sites', array( $ping_url ), $post_id ) )
+			return;
+
+		$http_args = array(
+			'redirection' => 0,
+			'httpversion' => '1.1',
+			'blocking' => false
+		);
+		foreach( $companies as $company ) {
+			if ( ! ( array_key_exists( 'id', $company ) && array_key_exists( 'name', $company ) ) )
+				return;
+
+			// fire and forget
+			wp_remote_get( $ping_url . '?' . http_build_query( array(
+				'type' => 'Startup',
+				'name' => $company['name'],
+				'id' => $company['id'],
+				'perma_link' => $post_url
+			), '', '&' ), $http_args );
+		}
+		add_post_meta( $post_id, $notify_once_meta_key, '1', true );
 	}
 
 	/**
