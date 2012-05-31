@@ -1,7 +1,7 @@
 var angellist = angellist || {};
 angellist.company_selector = {
 	// Plugin / JS version
-	version: '1.0',
+	version: '1.1',
 
 	// English labels for inserted text. Overridden with localized values through PHP output with special event trigger
 	labels: { remove: "Delete", no_results: "No results found.", search: "Add a company:", search_placeholder: "Start typing..." },

@@ -35,7 +35,7 @@ class AngelList_API {
 	 * As of May 2012 these images are stored on Amazon S3. If we don't need HTTPS and Amazon's certificate we can construct a new URL based on an assumed CNAME entry for the bucket
 	 * Avoids unncessary overhead of HTTPS when we know we are on HTTP (the majority case) & makes the URL a bit more pretty without the vendor hostname
 	 *
-	 * @since 1.0
+	 * @since 1.1
 	 * @param string $url AngelList static asset URL
 	 * @return string cleaned up URL if incoming request was HTTP
 	 */
