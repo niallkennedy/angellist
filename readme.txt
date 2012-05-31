@@ -28,8 +28,9 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 = 1.1 =
 
 * Display up to three people with confirmed involvement in the company. Preference given to founders.
-* Display startup market tag
-* Display startup headquarters location
+* Defer image loading until page is visible and a visitor has scrolled to the AngelList content.
+* Display startup market tag.
+* Display startup headquarters location.
 * Ping AngelList when a post mentioning a company is first published. Adds a press mention to the AngelList company page for supported publishers.
 
 = 1.0 =
@@ -39,7 +40,7 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 
 = 1.1 =
 
-Key people. Display market tag + location. Publicize new posts through AngelList.
+Key people. Display market tag + location. Publicize new posts through AngelList. Lazy load images.
 
 = 1.0 =
 Initial release.
