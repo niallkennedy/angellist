@@ -13,7 +13,7 @@ Add AngelList company profiles to your posts.
 
 Associate an individual post with one or more [AngelList](http://angel.co/) companies to automatically display company logo, summary, description, and more after your post content.
 
-The plugin generates HTML markup for posts with associated companies. Company profiles are cached on your server for fast access without remote requests to AngelList servers.
+The plugin generates HTML markup for posts with associated companies. Company profiles are cached on your server for fast access without remote requests to AngelList servers with each page load.
 
 Includes [Schema.org markup](http://schema.org/) for rich company metadata and search engine friendliness.
 
