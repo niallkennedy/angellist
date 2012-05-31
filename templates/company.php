@@ -319,7 +319,7 @@ class AngelList_Company {
 		$html .= '</li>';
 
 		// cache markup to save us some time on the next request
-		set_transient( $this->cache_key, $html, 3600 );
+		set_transient( $this->cache_key, $html, 10800 );
 
 		return $html;
 	}
