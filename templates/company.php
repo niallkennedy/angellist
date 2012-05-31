@@ -278,7 +278,9 @@ class AngelList_Company {
 		$html .= '<div class="angellist-company-summary">';
 		if ( isset( $this->thumbnail ) ) {
 			$html .= '<a class="angellist-company-image" href="' . $this->profile_url . '" title="' . $profile_url_title_attr . '"' . $this->anchor_extra . '>';
-			$html .= '<img alt="' . esc_attr( $this->name ) . '" src="' . $this->thumbnail->url . '" width="90" height="90" />';
+			$image = '<img alt="' . esc_attr( $this->name ) . '" src="' . $this->thumbnail->url . '" width="90" height="90" />';
+			$html .= '<noscript class="img" data-html="' . esc_attr( $image ) . '">' . $image . '</noscript>';
+			unset( $image );
 			$html .= '</a>';
 		}
 		$html .= '<div class="angellist-company-summary-text">';

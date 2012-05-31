@@ -170,7 +170,9 @@ class AngelList_Person {
 			$html .= '<div class="angellist-person-photo">';
 			if ( isset( $this->url ) )
 				$html .= '<a href="' . $this->url . '"' . $anchor_extra . '>';
-			$html .= '<img alt="' . esc_attr( $this->name ) . '" src="' . $this->image->url . '" width="38" height="38" />';
+			$image = '<img alt="' . esc_attr( $this->name ) . '" src="' . $this->image->url . '" width="38" height="38" />';
+			$html .= '<noscript class="img" data-html="' . esc_attr( $image ) . '">' . $image . '</noscript>';
+			unset( $image );
 			if ( isset( $this->url ) )
 				$html .= '</a>';
 			$html .= '</div>';
