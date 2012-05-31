@@ -72,7 +72,7 @@ class AngelList_Content {
 	 * @return string cache key
 	 */
 	public static function cache_key( $post_id, $ssl=false ) {
-		$cache_key_parts = array( 'angellist-companies', 'v1.0' );
+		$cache_key_parts = array( 'angellist-companies', 'v1.1' );
 
 		// differentiate between posts on different sites
 		if ( is_multisite() ) {
@@ -101,7 +101,7 @@ class AngelList_Content {
 
 		$html = '';
 		if ( ! class_exists( 'AngelList_Company' ) )
-			require_once( dirname( __FILE__ ) . '/company-template.php' );
+			require_once( dirname( __FILE__ ) . '/templates/company.php' );
 		foreach ( $company_ids as $company_id ) {
 			$company = new AngelList_Company( $company_id );
 			if ( isset( $company->html ) )
