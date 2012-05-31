@@ -83,7 +83,6 @@ var angellist = {
 
 	// actions once the container appears in viewport
 	on_visible: function() {
-		console.log( "visible" );
 		angellist.lazy_load_images();
 	},
 
