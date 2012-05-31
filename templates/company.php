@@ -102,7 +102,6 @@ class AngelList_Company {
 				$this->logo_url = $url;
 			unset( $url );
 		}
-		unset( $no_pic );
 
 		if ( isset( $company->high_concept ) ) {
 			$concept = trim( $company->high_concept );
@@ -118,17 +117,41 @@ class AngelList_Company {
 			unset( $description );
 		}
 
-		if ( isset( $company->locations ) ) {
-			// iterate until we find a URL we like
-			foreach( $company->locations as $location ) {
-				if ( isset( $location->angellist_url ) ) {
-					$url = esc_url( $location->angellist_url, array( 'http', 'https' ) );
-					if ( $url ) {
-						$this->location_url = $url;
-						break;
-					}
-					unset( $url );
-				}
+		// first location with all the data we want is considered the HQ and displayed
+		if ( isset( $company->locations ) && is_array( $company->locations ) ) {
+			// iterate until we find a URL + name
+			foreach ( $company->locations as $location ) {
+				if ( ! ( isset( $location->angellist_url ) && isset( $location->display_name ) ) )
+					continue;
+				$url = esc_url( $location->angellist_url, array( 'http', 'https' ) );
+				if ( ! $url )
+					continue;
+				$hq_location = new stdClass();
+				$hq_location->url = $url;
+				unset( $url );
+				$hq_location->name = trim( $location->display_name );
+				$this->location = $hq_location;
+				unset( $hq_location );
+				break;
+			}
+		}
+
+		// first market with the data we want is considered the main market
+		if ( isset( $company->markets ) && is_array( $company->markets ) ) {
+			// iterate until we find a URL + name
+			foreach ( $company->markets as $tag ) {
+				if ( ! ( isset( $tag->angellist_url ) && isset( $tag->display_name ) ) )
+					continue;
+				$url = esc_url( $tag->angellist_url, array( 'https', 'http' ) );
+				if ( ! $url )
+					continue;
+				$main_tag = new stdClass();
+				$main_tag->url = $url;
+				unset( $url );
+				$main_tag->name = trim( $tag->display_name );
+				$this->tag = $main_tag;
+				unset( $main_tag );
+				break;
 			}
 		}
 	}
@@ -245,8 +268,8 @@ class AngelList_Company {
 			else if ( isset( $this->thumbnail ) )
 				$html .= '<meta itemprop="image" content="' . $this->thumbnail->url . '" />';
 
-			if ( isset( $this->location_url ) ) {
-				$html .= '<meta itemprop="location" content="' . $this->location_url . '" />';
+			if ( isset( $this->location ) ) {
+				$html .= '<meta itemprop="location" content="' . $this->location->url . '" />';
 			}
 		} else {
 			$html .= '>';
@@ -265,6 +288,17 @@ class AngelList_Company {
 		$html .= '>' . esc_html( $this->name ) . '</a>';
 		if ( isset( $this->concept ) )
 			$html .= '<div class="angellist-company-concept">' . esc_html( $this->concept ) . '</div>';
+		if ( isset( $this->tag ) || isset( $this->location ) ) {
+			$html .= '<div class="angellist-company-metadata">';
+			if ( isset( $this->tag ) ) {
+				$html .= '<a class="angellist-company-tag" href="' . $this->tag->url . '"' . $this->anchor_extra . '>' . esc_html( $this->tag->name ) . '</a>';
+				if ( isset( $this->location ) )
+					$html .= ' &#183; ';
+			}
+			if ( isset( $this->location ) )
+				$html .= '<a class="angellist-company-location" href="' . $this->location->url . '"' . $this->anchor_extra . '>' . esc_html( $this->location->name ) . '</a>';
+			$html .= '</div>';
+		}
 		$html .= '</div>'; // summary-text
 		$html .= '<span class="angellist-follow-button"><a href="' . $this->profile_url . '" title="' . $profile_url_title_attr . '"' . $this->anchor_extra . '>' . esc_html( __( 'Follow on AngelList', 'angellist' ) ) . '</a></span>';
 		$html .= '</div>'; // summary

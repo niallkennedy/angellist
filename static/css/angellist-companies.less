@@ -12,7 +12,7 @@
   font-size: 15px;
   font-family: "helvetica neue", arial, helvetica, freesans, "liberation sans", "numbus sans l", sans-serif !important;
 
-  li {
+  li.angellist-company {
     margin-top: 20px;
     padding-top: 20px;
     margin-bottom: 20px;
@@ -80,6 +80,8 @@
   .angellist-company-summary-text {
 	  float: left;
 	  vertical-align: middle;
+	  margin-top: auto;
+	  margin-bottom: auto;
   }
 
   .angellist-company-name {
@@ -94,6 +96,21 @@
     color: #666;
     font-weight: bold;
     margin-bottom: 2px;
+  }
+
+  .angellist-company-metadata {
+    color: #999;
+    margin-top: -5px;
+
+    a {
+      color: inherit;
+      font-size: 11px;
+      text-decoration: none;
+
+      &:hover {
+        color: inherit;
+      }
+    }
   }
 
   .angellist-follow-button {
@@ -148,3 +165,5 @@
     }
   }
 }
+
+@import "angellist-people.less";
