@@ -185,7 +185,7 @@ class AngelList_Company {
 				continue;
 			if ( $person->role === 'founder' )
 				$founders[] = $person;
-			else
+			else if ( $person->role !== 'referrer' )
 				$everyone_else[] = $person;
 		}
 		unset( $people );
