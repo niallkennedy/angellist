@@ -229,7 +229,7 @@ class AngelList_Company {
 		if ( isset( $this->schema_org ) && ! $this->schema_org )
 			$cache_parts[] = 'ns';
 		if ( isset( $this->browsing_context ) && $this->browsing_context )
-			$cache_parts[] = substr( $this->browsing_context, 1 );
+			$cache_parts[] = substr( $this->browsing_context, 1 ); // remove leading '_'
 		return implode( '-', $cache_parts );
 	}
 
