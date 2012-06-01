@@ -49,16 +49,30 @@ class AngelList_API {
 	}
 
 	/**
-	 * AngelList data for a single company
+	 * Basic check for parameter validity before sending a request
 	 *
-	 * @since 1.1
-	 * @param int $company_id AngelList company identifer
+	 * @since 1.11
+	 * @param int $company_id AngelList company identifier
+	 * @return bool true if positive integer else false
 	 */
-	public static function get_company( $company_id ) {
-		if ( ! is_int( $company_id ) || $company_id < 1 )
+	public static function is_valid_company_id( $company_id ) {
+		if ( is_int( $company_id ) && $company_id > 0 )
+			return true;
+		return false;
+	}
+
+	/**
+	 * Request a JSON URL from AngelList
+	 *
+	 * @since 1.11
+	 * @param string relative path to be added to BASE_URL
+	 * @return null|stdClass json_decode response as stdClass or null if request or JSON decode failed
+	 */
+	public static function get_json_url( $path ) {
+		if ( ! ( is_string( $path ) && $path ) )
 			return;
 
-		$response = wp_remote_get( AngelList_API::BASE_URL . 'startups/' . $company_id, AngelList_API::$http_args );
+		$response = wp_remote_get( AngelList_API::BASE_URL . $path, AngelList_API::$http_args );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) != '200' )
 			return;
 
@@ -68,19 +82,32 @@ class AngelList_API {
 		return json_decode( $response_body );
 	}
 
+	/**
+	 * AngelList data for a single company
+	 *
+	 * @since 1.1
+	 * @param int $company_id AngelList company identifer
+	 * @return null|stdClass json_decode response as stdClass or null if request or JSON decode failed
+	 */
+	public static function get_company( $company_id ) {
+		if ( ! AngelList_API::is_valid_company_id( $company_id ) )
+			return;
+
+		return AngelList_API::get_json_url( 'startups/' . $company_id );
+	}
+
+	/**
+	 * Get a list of people associated with a company
+	 *
+	 * @since 1.1
+	 * @param int $company_id AngelList company identifier
+	 * @return null|stdClass json_decode response as stdClass or null if request or JSON decode failed or startup_roles not present
+	 */
 	public static function get_roles_by_company( $company_id ) {
-		if ( ! is_int( $company_id ) || $company_id < 1 )
+		if ( ! AngelList_API::is_valid_company_id( $company_id ) )
 			return;
 
-		$response = wp_remote_get( AngelList_API::BASE_URL . 'startup_roles?startup_id=' . $company_id, AngelList_API::$http_args );
-		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) != '200' )
-			return;
-
-		$response_body = wp_remote_retrieve_body( $response );
-		if ( empty( $response_body ) )
-			return;
-
-		$json = json_decode( $response_body );
+		$json = AngelList_API::get_json_url( 'startup_roles?startup_id=' . $company_id );
 		if ( ! empty( $json ) && isset( $json->startup_roles ) && ! empty( $json->startup_roles ) )
 			return $json->startup_roles;
 	}
