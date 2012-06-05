@@ -1,6 +1,8 @@
 <?php
 /**
  * Add a meta box to the edit post and new post page
+ *
+ * @since 1.0
  */
 class AngelList_Post_Meta_Box {
 	/**
@@ -71,7 +73,7 @@ class AngelList_Post_Meta_Box {
 		$js_filename = 'angellist-company-selector.js';
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true )
 			$js_filename = 'angellist-company-selector.dev.js';
-		wp_enqueue_script( AngelList_Post_Meta_Box::BASE_ID . '-js', plugins_url( 'static/js/' . $js_filename, __FILE__ ), array( 'jquery-ui-widget', 'jquery-ui-autocomplete', 'jquery-ui-sortable' ), '1.1', true );
+		wp_enqueue_script( AngelList_Post_Meta_Box::BASE_ID . '-js', plugins_url( 'static/js/' . $js_filename, __FILE__ ), array( 'jquery-ui-widget', 'jquery-ui-autocomplete', 'jquery-ui-sortable' ), '1.2', true );
 	}
 
 	/**
@@ -81,7 +83,7 @@ class AngelList_Post_Meta_Box {
 	 * @uses wp_enqueue_style()
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( AngelList_Post_Meta_Box::BASE_ID . '-css', plugins_url( 'static/css/angellist-company-selector.css', __FILE__ ), array(), '1.1' );
+		wp_enqueue_style( AngelList_Post_Meta_Box::BASE_ID . '-css', plugins_url( 'static/css/angellist-company-selector.css', __FILE__ ), array(), '1.2' );
 	}
 
 	/**

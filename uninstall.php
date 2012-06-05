@@ -3,7 +3,7 @@
 /**
  * Remove all post meta
  *
- * @since 1.11
+ * @since 1.2
  */
 function angellist_uninstall() {
 	$meta_key = 'angellist-companies';

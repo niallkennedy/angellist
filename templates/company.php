@@ -219,7 +219,7 @@ class AngelList_Company {
 	/**
 	 * Display jobs at the company listed in AngelList
 	 *
-	 * @since 1.11
+	 * @since 1.2
 	 * @param int $limit show at most N jobs
 	 * @return string HTML list of job listings
 	 */
@@ -258,7 +258,7 @@ class AngelList_Company {
 	 * @return string WordPress cache or transient key
 	 */
 	private function generate_cache_key() {
-		$cache_parts = array( 'angellist-company', 'v1.11', $this->id );
+		$cache_parts = array( 'angellist-company', 'v1.2', $this->id );
 		if ( is_ssl() )
 			$cache_parts[] = 'ssl';
 		if ( isset( $this->schema_org ) && ! $this->schema_org )

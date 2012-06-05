@@ -51,7 +51,7 @@ class AngelList_API {
 	/**
 	 * Basic check for parameter validity before sending a request
 	 *
-	 * @since 1.11
+	 * @since 1.2
 	 * @param int $company_id AngelList company identifier
 	 * @return bool true if positive integer else false
 	 */
@@ -64,7 +64,7 @@ class AngelList_API {
 	/**
 	 * Request a JSON URL from AngelList
 	 *
-	 * @since 1.11
+	 * @since 1.2
 	 * @param string relative path to be added to BASE_URL
 	 * @return null|stdClass json_decode response as stdClass or null if request or JSON decode failed
 	 */
@@ -115,7 +115,7 @@ class AngelList_API {
 	/**
 	 * Get open job listings for a given company
 	 *
-	 * @since 1.11
+	 * @since 1.2
 	 * @param int $company_id AngelList company identifier
 	 * @return null|stdClass json_decode response as stdClass or null if request or JSON decode failed
 	 */

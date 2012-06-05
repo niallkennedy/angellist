@@ -1,6 +1,8 @@
 <?php
 /**
  * Search AngelList by object type
+ *
+ * @since 1.0
  */
 class AngelList_Search {
 	/**

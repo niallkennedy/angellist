@@ -5,10 +5,15 @@ Plugin URI: https://github.com/niallkennedy/angellist
 Description: Associate a post with an AngelList startup.
 Author: Niall Kennedy
 Author URI: http://www.niallkennedy.com/
-Version: 1.1
+Version: 1.2
 */
 
 if ( ! class_exists( 'AngelList' ) ):
+/**
+ * Load the AngelList plugin
+ *
+ * @since 1.0
+ */
 class AngelList {
 	public static function init() {
 		$plugin_directory = dirname( __FILE__ );

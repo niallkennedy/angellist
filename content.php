@@ -61,7 +61,7 @@ class AngelList_Content {
 	 * @uses wp_enqueue_style()
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( 'angellist-companies', plugins_url( 'static/css/angellist-companies.css', __FILE__ ), array(), '1.1' );
+		wp_enqueue_style( 'angellist-companies', plugins_url( 'static/css/angellist-companies.css', __FILE__ ), array(), '1.2' );
 	}
 
 	/**
@@ -72,7 +72,7 @@ class AngelList_Content {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'jquery', is_ssl() ? 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js' : 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', array(), null, true );
-		wp_enqueue_script( 'angellist', plugins_url( 'static/js/angellist' . ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ? '.dev' : '' ) . '.js', __FILE__ ), array( 'jquery' ), '1.1', true );
+		wp_enqueue_script( 'angellist', plugins_url( 'static/js/angellist' . ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ? '.dev' : '' ) . '.js', __FILE__ ), array( 'jquery' ), '1.2', true );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class AngelList_Content {
 	 * @return string cache key
 	 */
 	public static function cache_key( $post_id, $ssl=false ) {
-		$cache_key_parts = array( 'angellist-companies', 'v1.1' );
+		$cache_key_parts = array( 'angellist-companies', 'v1.2' );
 
 		// differentiate between posts on different sites
 		if ( is_multisite() ) {

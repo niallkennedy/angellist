@@ -2,14 +2,14 @@
 /**
  * An individual company job listing
  *
- * @since 1.11
+ * @since 1.2
  */
 class AngelList_Job {
 
 	/**
 	 * Build a job object based on AngelList job API response data
 	 *
-	 * @since 1.11
+	 * @since 1.2
 	 * @param stdClass single response from AngelList job listing API
 	 */
 	public function __construct( $job_data ) {
@@ -26,7 +26,7 @@ class AngelList_Job {
 	/**
 	 * HTML markup for a single job mention
 	 *
-	 * @since 1.11
+	 * @since 1.2
 	 * @param bool $schema_org output Schema.org markup
 	 * @param string $anchor_extra extra attributes such as browser context (target) to be applied to each anchor element
 	 * @return string HTML markup for a single list item or empty string if minimum requirements (name, role) not met

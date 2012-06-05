@@ -3,7 +3,7 @@ Contributors: niallkennedy
 Tags: angellist, startups
 Requires at least: 3.3
 Tested up to: 3.4
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,12 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 
 == Changelog ==
 
+= 1.2 =
+
+* Display up to three job listings for claimed companies
+* Remove AngelList content from excerpt generators
+* Uninstaller
+
 = 1.1 =
 
 * Display up to three people with confirmed involvement in the company. Preference given to founders.
@@ -37,6 +43,10 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 * Tag posts. Display company profiles.
 
 == Upgrade Notice ==
+
+= 1.2 =
+
+Up to three jobs per company. Exclude from excerpts. Uninstaller.
 
 = 1.1 =
 

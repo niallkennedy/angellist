@@ -2,7 +2,7 @@
 // requires jQuery
 var angellist = {
 	// Plugin / JS version
-	version: '1.1',
+	version: '1.2',
 
 	// track if page is visible. ignores prefetch or preview
 	page_visible: false,
