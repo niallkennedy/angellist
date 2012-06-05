@@ -111,5 +111,19 @@ class AngelList_API {
 		if ( ! empty( $json ) && isset( $json->startup_roles ) && ! empty( $json->startup_roles ) )
 			return $json->startup_roles;
 	}
+
+	/**
+	 * Get open job listings for a given company
+	 *
+	 * @since 1.11
+	 * @param int $company_id AngelList company identifier
+	 * @return null|stdClass json_decode response as stdClass or null if request or JSON decode failed
+	 */
+	public static function get_jobs_by_company( $company_id ) {
+		if ( ! AngelList_API::is_valid_company_id( $company_id ) )
+			return;
+
+		return AngelList_API::get_json_url( 'startups/' . $company_id . '/jobs' );
+	}
 }
 ?>

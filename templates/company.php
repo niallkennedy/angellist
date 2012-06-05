@@ -172,8 +172,8 @@ class AngelList_Company {
 			require_once( dirname( dirname( __FILE__ ) ) . '/api.php' );
 
 		$people = AngelList_API::get_roles_by_company( $this->id );
-		if ( empty( $people ) || ! is_array( $people ) )
-			return;
+		if ( ! is_array( $people ) || empty( $people ) )
+			return '';
 
 		if ( ! class_exists( 'AngelList_Person' ) )
 			require_once( dirname( __FILE__ ) . '/person.php' );
@@ -200,7 +200,7 @@ class AngelList_Company {
 
 		// this should not happen. just in case
 		if ( empty( $top_people ) )
-			return;
+			return '';
 
 		$people_html = '';
 		foreach ( $top_people as $person_data ) {
@@ -217,13 +217,48 @@ class AngelList_Company {
 	}
 
 	/**
+	 * Display jobs at the company listed in AngelList
+	 *
+	 * @since 1.11
+	 * @param int $limit show at most N jobs
+	 * @return string HTML list of job listings
+	 */
+	private function jobs( $limit = 3 ) {
+		// check for garbage
+		if ( ! is_int( $limit ) || $limit < 1 )
+			$limit = 3;
+
+		if ( ! class_exists( 'AngelList_API' ) )
+			require_once( dirname( dirname( __FILE__ ) ) . '/api.php' );
+		$jobs = AngelList_API::get_jobs_by_company( $this->id );
+		if ( ! is_array( $jobs ) || empty( $jobs ) )
+			return '';
+		if ( count( $jobs ) > $limit )
+			$jobs = array_slice( $jobs, 0, $limit );
+
+		if ( ! class_exists( 'AngelList_Job' ) )
+			require_once( dirname( __FILE__ ) . '/job.php' );
+
+		$jobs_html = '';
+		foreach ( $jobs as $job_data ) {
+			$job = new AngelList_Job( $job_data );
+			if ( isset( $job->title ) )
+				$jobs_html .= $job->render();
+		}
+		if ( $jobs_html )
+			return '<div class="angellist-jobs"><span>' . esc_html( sprintf( __( '%s is hiring:', 'angellist' ), $this->name ) ) . '</span><ol>' . $jobs_html . '</ol>';
+		else
+			return '';
+	}
+
+	/**
 	 * Generate a cache key based on site preferences and SSL requirements
 	 *
 	 * @since 1.0
 	 * @return string WordPress cache or transient key
 	 */
 	private function generate_cache_key() {
-		$cache_parts = array( 'angellist-company', 'v1.1', $this->id );
+		$cache_parts = array( 'angellist-company', 'v1.11', $this->id );
 		if ( is_ssl() )
 			$cache_parts[] = 'ssl';
 		if ( isset( $this->schema_org ) && ! $this->schema_org )
@@ -316,6 +351,7 @@ class AngelList_Company {
 		// these next features only work for claimed companies
 		if ( $this->claimed ) {
 			$html .= $this->people();
+			$html .= $this->jobs();
 		}
 
 		$html .= '</li>';
