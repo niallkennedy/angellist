@@ -3,7 +3,7 @@ Contributors: niallkennedy
 Tags: angellist, startups
 Requires at least: 3.3
 Tested up to: 3.4
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,9 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 
 == Changelog ==
 
+= 1.2.1 =
+* Fix issue with photos.angel.co hostname not resolving since AWS East outage
+
 = 1.2 =
 
 * Display up to three job listings for claimed companies
@@ -43,6 +46,10 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 * Tag posts. Display company profiles.
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+
+Fix image URIs.
 
 = 1.2 =
 

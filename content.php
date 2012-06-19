@@ -84,7 +84,7 @@ class AngelList_Content {
 	 * @return string cache key
 	 */
 	public static function cache_key( $post_id, $ssl=false ) {
-		$cache_key_parts = array( 'angellist-companies', 'v1.2' );
+		$cache_key_parts = array( 'angellist-companies', 'v1.2.1' );
 
 		// differentiate between posts on different sites
 		if ( is_multisite() ) {
