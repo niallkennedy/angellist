@@ -43,8 +43,9 @@ class AngelList_API {
 		if ( is_ssl() ) {
 			// reject including a non-SSL asset on the page if it will generate mixed content warnings
 			return esc_url( $url, array( 'https' ) );
-		} else if ( strlen( $url ) > 41 && substr_compare( $url, 'https://s3.amazonaws.com/photos.angel.co/', 0, 41 ) === 0 )
+		}/* else if ( strlen( $url ) > 41 && substr_compare( $url, 'https://s3.amazonaws.com/photos.angel.co/', 0, 41 ) === 0 ) {
 			return esc_url( 'http://photos.angel.co/' . substr( $url, 41 ), array( 'http' ) );
+		} */
 		return esc_url( $url, array( 'http', 'https' ) );
 	}
 
