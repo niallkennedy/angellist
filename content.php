@@ -71,7 +71,7 @@ class AngelList_Content {
 	 * @uses wp_enqueue_script()
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'jquery', is_ssl() ? 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js' : 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', array(), null, true );
+		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'angellist', plugins_url( 'static/js/angellist' . ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ? '.dev' : '' ) . '.js', __FILE__ ), array( 'jquery' ), '1.2', true );
 	}
 
