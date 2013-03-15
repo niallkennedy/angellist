@@ -67,7 +67,7 @@ class AngelList_Post_Meta_Box {
 	 */
 	public function enqueue_scripts() {
 		// if jQuery not present load from Google CDN
-		wp_enqueue_script( 'jquery', is_ssl() ? 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js' : 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', array(), null );
+		wp_enqueue_script( 'jquery' );
 
 		// vary minified or not minified based on SCRIPT_DEBUG
 		$js_filename = 'angellist-company-selector.js';
