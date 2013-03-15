@@ -198,7 +198,7 @@ class AngelList_Post_Meta_Box {
 				$company_id = absint( $company['id'] );
 				if ( $company_id < 1 || in_array( $company_id, $processed_company_ids, true ) )
 					continue;
-				$companies[] = array( 'id' => $company_id, 'name' => trim( $company['name'] ) );
+				$companies[] = array( 'id' => $company_id, 'name' => trim( sanitize_text_field( $company['name'] ) ) );
 				$processed_company_ids[] = $company_id;
 				unset( $company_id );
 			}
