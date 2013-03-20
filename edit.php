@@ -332,13 +332,6 @@ class AngelList_Post_Meta_Box {
 			exit();
 		}
 
-		// WordPress bootstrap. assume a wp-content/plugins/
-		if ( ! function_exists( 'current_user_can' ) )
-			require_once( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/wp-load.php' );
-
-		// override HTML default Content-Type with JSON
-		header( 'Content-Type: application/json; charset=utf-8', true );
-
 		// allow only logged-on users with the capability to see an edit post screen to access our API proxy
 		if ( ! current_user_can( 'edit_posts' ) )
 			$this->reject_message( new WP_Error( 403, __( 'Cheatin\' uh?' ) ) );
