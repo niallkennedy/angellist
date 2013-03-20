@@ -27,6 +27,8 @@ class AngelList_Post_Meta_Box {
 	 * @since 1.0
 	 */
 	public function __construct() {
+		add_action( 'wp_ajax_angellist-search', array( &$this, 'search' ) );
+
 		foreach ( array( 'post.php', 'post-new.php' ) as $action ) {
 			add_action( 'load-' . $action, array( &$this, 'load' ) );
 		}
@@ -141,7 +143,7 @@ class AngelList_Post_Meta_Box {
 
 		echo '<script type="text/javascript">jQuery( "#' . AngelList_Post_Meta_Box::BASE_ID . '" ).one( "' . AngelList_Post_Meta_Box::BASE_ID . '-onload", function(){';
 		foreach ( array(
-			'search_url' => plugins_url( 'search/startups.php', __FILE__ ),
+			'search_url' => admin_url( 'admin-ajax.php' ),
 			'company_ids' => $company_ids,
 			'labels' => array(
 				'remove' => __( 'Delete', 'angellist' ),
@@ -316,5 +318,59 @@ class AngelList_Post_Meta_Box {
 			'content' => '<p>' . esc_html( __( 'Search for a company by name.', 'angellist' ) ) . '</p><p>' . esc_html( __( 'Select a matching company from the result list.', 'angellist' ) ) . '</p><p>' . esc_html( __( 'Rearrange companies in the order you would like them to appear in your post by dragging a company name to its new position.', 'angellist' ) ) . '</p><p>' . esc_html( sprintf( __( 'Remove a company from the list by clicking the %s button.', 'angellist' ), 'X' ) ) . '</p>'
 		) );
 	}
+
+	/**
+	 * Search AngelList companies by freeform text
+	 *
+	 * @since 1.0
+	 */
+	public function search() {
+		// GET only
+		if ( array_key_exists( 'REQUEST_METHOD', $_SERVER ) && $_SERVER['REQUEST_METHOD'] !== 'GET' ) {
+			header( 'HTTP/1.1 405 Method Not Allowed', true, 405 );
+			header( 'Allow: GET', true );
+			exit();
+		}
+
+		// WordPress bootstrap. assume a wp-content/plugins/
+		if ( ! function_exists( 'current_user_can' ) )
+			require_once( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/wp-load.php' );
+
+		// override HTML default Content-Type with JSON
+		header( 'Content-Type: application/json; charset=utf-8', true );
+
+		// allow only logged-on users with the capability to see an edit post screen to access our API proxy
+		if ( ! current_user_can( 'edit_posts' ) )
+			$this->reject_message( new WP_Error( 403, __( 'Cheatin\' uh?' ) ) );
+
+		if ( ! array_key_exists( 'q', $_GET ) )
+			$this->reject_message( new WP_Error( 400, 'Search string needed. Use q query parameter.' ) );
+
+		$__search_term = trim( $_GET['q'] );
+		if ( empty( $__search_term ) )
+			$this->reject_message( new WP_Error( 400, 'No search string provided.' ) );
+
+		if ( ! class_exists( 'AngelList_Search' ) )
+			require_once( dirname(__FILE__) . '/search/class-angellist-search.php' );
+
+		$__companies = AngelList_Search::startups( $__search_term );
+		if ( is_wp_error( $__companies ) )
+			$this->reject_message( $__companies );
+		else
+			echo json_encode( $__companies );
+
+		die();
+	}
+
+	/**
+	 * Echo a JSON error message, set a HTTP status, and exit
+	 *
+	 * @since 1.0
+	 * @param WP_Error $error error code of HTTP status int. error message echoed in JSON
+	 */
+	public function reject_message( WP_Error $error ) {
+		status_header( $error->get_error_code() );
+		echo json_encode( array( 'error' => $error->get_error_message() ) );
+		exit();
+	}
 }
-?>
