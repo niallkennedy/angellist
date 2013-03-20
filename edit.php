@@ -339,7 +339,7 @@ class AngelList_Post_Meta_Box {
 		if ( ! array_key_exists( 'q', $_GET ) )
 			$this->reject_message( new WP_Error( 400, 'Search string needed. Use q query parameter.' ) );
 
-		$__search_term = trim( $_GET['q'] );
+		$__search_term = trim( sanitize_text_field( $_GET['q'] ) );
 		if ( empty( $__search_term ) )
 			$this->reject_message( new WP_Error( 400, 'No search string provided.' ) );
 
