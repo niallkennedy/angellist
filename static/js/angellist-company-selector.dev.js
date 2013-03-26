@@ -148,7 +148,11 @@ angellist.company_selector = {
 					return;
 				}
 				jQuery.ajax({
-					url: angellist.company_selector.search_url + "?" + jQuery.param( {q:term} ),
+					url: angellist.company_selector.search_url,
+					data: {
+						action: 'angellist-search',
+						q: term
+					},
 					dataType: "json",
 					success: function( companies ) {
 						response( jQuery.map( companies, function( company ) {
