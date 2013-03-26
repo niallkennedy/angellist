@@ -61,7 +61,7 @@ class AngelList_Content {
 	 * @uses wp_enqueue_style()
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( 'angellist-companies', plugins_url( 'static/css/angellist-companies.css', __FILE__ ), array(), '1.2' );
+		wp_enqueue_style( 'angellist-companies', plugins_url( 'static/css/angellist-companies.css', __FILE__ ), array(), '1.3' );
 	}
 
 	/**
@@ -72,7 +72,7 @@ class AngelList_Content {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'angellist', plugins_url( 'static/js/angellist' . ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG === true ? '.dev' : '' ) . '.js', __FILE__ ), array( 'jquery' ), '1.2', true );
+		wp_enqueue_script( 'angellist', plugins_url( 'static/js/angellist' . ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' ) . '.js', __FILE__ ), array( 'jquery' ), '1.3', true );
 	}
 
 	/**
