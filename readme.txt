@@ -3,7 +3,7 @@ Contributors: niallkennedy
 Tags: angellist, startups
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 1.3
+Stable tag: 1.3.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,11 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 1. Start a search from a new post or edit post page
 
 == Changelog ==
+
+= 1.3.1 =
+
+* only add AngelList content to content in the loop
+* minor style change for people display
 
 = 1.3 =
 * Use wp-ajax for company selector
@@ -51,6 +56,9 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 * Tag posts. Display company profiles.
 
 == Upgrade Notice ==
+
+= 1.3.1 =
+Only add AngelList content to content in the loop. Improve line spacing for key people display.
 
 = 1.3 =
 WP Ajax autocomplete. New startup roles endpoint. WP 3.5 minimum.
