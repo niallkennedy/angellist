@@ -140,7 +140,7 @@ class AngelList_Content {
 	public function content( $content ) {
 		global $post;
 
-		if ( ! ( isset( $post ) && $content && isset( $this->company_ids ) && is_array( $this->company_ids ) ) )
+		if ( ! in_the_loop() OR ! ( isset( $post ) && $content && isset( $this->company_ids ) && is_array( $this->company_ids ) ) )
 			return $content;
 
 		$post_id = absint( $post->ID );
