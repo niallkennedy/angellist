@@ -61,7 +61,7 @@ class AngelList_Content {
 	 * @uses wp_enqueue_style()
 	 */
 	public static function enqueue_styles() {
-		wp_enqueue_style( 'angellist-companies', plugins_url( 'static/css/angellist-companies.css', __FILE__ ), array(), '1.2' );
+		wp_enqueue_style( 'angellist-companies', plugins_url( 'static/css/angellist-companies.css', __FILE__ ), array(), '1.3' );
 	}
 
 	/**
