@@ -234,7 +234,7 @@ class AngelList_Post_Meta_Box {
 
 		// only notify for public posts
 		$post_status = get_post_status( $post_id );
-		if ( ! $post_status )
+		if ( ! $post_status || 'publish' !== $post_status )
 			return;
 		$post_status_object = get_post_status_object( $post_status );
 		if ( ! ( $post_status_object && isset( $post_status_object->public ) && $post_status_object->public !== true ) )
