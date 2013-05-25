@@ -5,7 +5,7 @@ Plugin URI: https://github.com/niallkennedy/angellist
 Description: Associate a post with an AngelList startup.
 Author: Niall Kennedy
 Author URI: http://www.niallkennedy.com/
-Version: 1.3.2
+Version: 1.3.3
 */
 
 if ( ! class_exists( 'AngelList' ) ):
