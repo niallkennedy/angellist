@@ -3,7 +3,7 @@ Contributors: niallkennedy
 Tags: angellist, startups
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,9 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 1. Start a search from a new post or edit post page
 
 == Changelog ==
+
+= 1.3.3 =
+* Ping AngelList when post status is public. Fixes an issue where pings sent for non-public stati
 
 = 1.3.2 =
 * fix uninstaller get_posts request
@@ -59,6 +62,9 @@ Includes [Schema.org markup](http://schema.org/) for rich company metadata and s
 * Tag posts. Display company profiles.
 
 == Upgrade Notice ==
+
+= 1.3.3 =
+Fix pings being sent to AngelList for non-public post stati
 
 = 1.3.2 =
 Fix uninstaller get_posts request
